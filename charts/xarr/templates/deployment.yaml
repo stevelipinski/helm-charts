@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "xarr.fullname" . }}
+  labels:
+    {{- include "xarr.labels" . | nindent 4 }}
+spec:
+  #replicas: {{ .Values.replicaCount }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "xarr.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "xarr.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySecynds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.probes.livenessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySecynds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.probes.readinessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySecynds: {{ .Values.probes.startupProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.probes.startupProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.probes.startupProbe.periodSeconds }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumes:
+    - name: config
+      persistentVolumeClaim:
+        claimName: {{ include "xarr.configpvc" . }}
+    - name: data
+      nfs:
+        server: "{{ .Values.nfs.data.server }}"
+        path: "{{ .Values.nfs.data.path }}"
