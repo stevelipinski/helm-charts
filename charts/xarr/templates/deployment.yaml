@@ -29,7 +29,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -75,11 +75,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: {{ include "xarr.configpvc" . }}
-      - name: data
-        nfs:
-          server: "{{ .Values.nfs.data.server }}"
-          path: "{{ .Values.nfs.data.path }}"
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: "{{ .Values.volumes.config.pvcName | default .Values.global.volumes.config.pvcName }}"
+        - name: data
+          nfs:
+            server: "{{ .Values.volumes.data.nfsServer | default .Values.global.volumes.data.nfsServer }}"
+            path: "{{ .Values.volumes.data.nfsPath | default .Values.global.volumes.data.nfsPath }}"

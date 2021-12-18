@@ -1,4 +1,14 @@
-# Default values for xarr.
+global:
+  volumes:
+    # PVC to use for config - shared among pods
+    config:
+      pvcName:
+
+    # NFS Volume for data
+    data:
+      nfsServer:
+      nfsPath:
+
 replicaCount: 1
 
 image:
@@ -64,17 +74,13 @@ probes:
   readinessProbe: {}
   startupProbe: {}
 
-pvc:
-  # PVC to use for config - can be shared among pods
+# Override global
+volumes:
+  # PVC to use for config - shared among pods
   config:
-    # Name to use for the config PVC
-    name:
-    # Storage Class (OpenEBS) - required
-    storageClassName:
-    size: 4Gi
+    pvcName:
 
-nfs:
   # NFS Volume for data
   data:
-    server:
-    path:
+    nfsServer:
+    nfsPath:
