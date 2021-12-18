@@ -5,7 +5,7 @@ type: application
 version: 0.1.0
 dependencies:
   - name: xarr
-    repository: https://stevelipinski.github.io/helm-charts
+    repository: "@stevelipinski-github"
     version: ^0.3.0
     condition: sonarr.deploy
     alias: sonar
