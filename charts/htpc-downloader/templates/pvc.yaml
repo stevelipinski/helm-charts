@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "{{ required "Config PVC Name Required" .Values.global.volumes.config.pvcName }}"
+spec:
+  storageClassName: "{{ required "Config PVC StorageClass Required" .Values.global.volumes.config.storageClassName }}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "{{ required "Config PVC Size Required" .Values.global.volumes.config.size }}"

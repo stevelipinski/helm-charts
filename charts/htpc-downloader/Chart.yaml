@@ -1,0 +1,11 @@
+apiVersion: v2
+name: htpc-downloader
+description: Umbrella chart for deploying HTPC downloader apps
+type: application
+version: 0.1.0
+dependencies:
+  - name: xarr
+    repository: https://stevelipinski.github.io/helm-charts
+    version: ^0.3.0
+    condition: sonarr.deploy
+    alias: sonar

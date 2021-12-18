@@ -1,0 +1,55 @@
+global:
+  volumes:
+    config:
+      pvcName: config
+      storageClassName: openebs-jiva-csi-default
+      size: 4Gi
+    data:
+      nfsServer: nas.example.com
+      nfsPath: /media
+
+sonarr:
+  deploy: true
+  ingress:
+    enabled: true
+    hosts:
+      - host: sonarr.example.com
+  image:
+    repository: linuxserver/sonarr
+    tag: arm64v8-latest
+radarr:
+  deploy: false
+  ingress:
+    enabled: true
+    hosts:
+      - host: radarr.example.com
+  image:
+    repository: linuxserver/radarr
+    tag: arm64v8-latest
+nzbget:
+  deploy: false
+  ingress:
+    enabled: true
+    hosts:
+      - host: nxbget.example.com
+  image:
+    repository: linuxserver/nzbget
+    tag: arm64v8-latest
+bazarr:
+  deploy: false
+  ingress:
+    enabled: true
+    hosts:
+      - host: bazarr.example.com
+  image:
+    repository: linuxserver/bazarr
+    tag: arm64v8-latest
+plex:
+  deploy: false
+  ingress:
+    enabled: true
+    hosts:
+      - host: plex.example.com
+  image:
+    repository: linuxserver/plex
+    tag: arm64v8-latest

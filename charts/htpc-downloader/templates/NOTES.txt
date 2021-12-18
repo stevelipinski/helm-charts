@@ -1,0 +1,7 @@
+Application URLs:
+{{ $values := .Values | merge (dict) }}
+{{- range tuple "sonarr" "radarr" "nzbget" "bazarr" "plex"}}
+{{- if dig . "enabled" false $values }}
+{{ . }}: {{ $values | dig . "ingress" (list) | first | dig "host" "" }}
+{{- end }}
+{{- end }}
