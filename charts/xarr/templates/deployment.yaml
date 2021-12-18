@@ -75,11 +75,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-  volumes:
-    - name: config
-      persistentVolumeClaim:
-        claimName: {{ include "xarr.configpvc" . }}
-    - name: data
-      nfs:
-        server: "{{ .Values.nfs.data.server }}"
-        path: "{{ .Values.nfs.data.path }}"
+    volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: {{ include "xarr.configpvc" . }}
+      - name: data
+        nfs:
+          server: "{{ .Values.nfs.data.server }}"
+          path: "{{ .Values.nfs.data.path }}"
