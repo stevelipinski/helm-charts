@@ -78,6 +78,15 @@ entries:
     version: 0.1.0
   xarr:
   - apiVersion: v2
+    created: "2021-12-19T14:48:44.799039658Z"
+    description: Reusable Helm chart for running Xarr, e.g., Sonarr, Radarr, Lidar, on Kubernetes
+    digest: 0e8b4b1c9e347bf3d8fa64d1d6c34d983d2e3705d91ba65419e8b79e09bb28ab
+    name: xarr
+    type: application
+    urls:
+    - https://github.com/stevelipinski/helm-charts/releases/download/xarr-0.3.4/xarr-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v2
     created: "2021-12-19T14:33:22.308190102Z"
     description: Reusable Helm chart for running Xarr, e.g., Sonarr, Radarr, Lidar, on Kubernetes
     digest: 076c9c891fed8c24db067d74a308fc538724747192a1c62254bf3b1fb8f54af9
