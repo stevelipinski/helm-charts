@@ -1,7 +1,11 @@
 Application URLs:
 {{ $values := .Values | merge (dict) }}
 {{- range tuple "sonarr" "radarr" "nzbget" "bazarr" "plex"}}
-{{- if dig . "enabled" false $values }}
-{{ . }}: {{ $values | dig . "ingress" (list) | first | dig "host" "" }}
+{{- $app_values := get $values . | default (dict) }}
+{{- if $app_values.enabled }}
+{{- $app_host := get ($app_values.ingress | default (dict) | first | default (dict)) "host" }}
+{{- if $app_host }}
+{{ . }}: {{ $app_host }}
+{{- end }}
 {{- end }}
 {{- end }}
