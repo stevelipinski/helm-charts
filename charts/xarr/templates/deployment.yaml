@@ -61,7 +61,7 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-              subPath: /{{ .Chart.Name }}
+              subPath: {{ .Chart.Name }}/
             - name: data
               mountPath: /data
       initContainers:
