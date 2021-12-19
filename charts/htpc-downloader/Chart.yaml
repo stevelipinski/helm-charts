@@ -2,7 +2,7 @@ apiVersion: v2
 name: htpc-downloader
 description: Umbrella chart for deploying HTPC downloader apps
 type: application
-version: 0.1.7
+version: 0.1.8
 dependencies:
   - name: xarr
     repository: "@stevelipinski-github"
