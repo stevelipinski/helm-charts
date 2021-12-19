@@ -38,6 +38,9 @@ service:
   type: ClusterIP
   port: 80
 
+# Must be set for the particular app e.g., 8989 for sonarr
+appPort: 80
+
 ingress:
   enabled: false
   annotations: {}
