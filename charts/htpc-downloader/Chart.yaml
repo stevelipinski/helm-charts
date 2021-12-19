@@ -6,6 +6,6 @@ version: 0.1.7
 dependencies:
   - name: xarr
     repository: "@stevelipinski-github"
-    version: ^0.3.6
+    version: ^0.3.7
     condition: sonarr.deploy
     alias: sonarr
