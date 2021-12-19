@@ -76,8 +76,11 @@ spec:
           - |
             set -eo pipefail
             [[ $DEBUG ]] && set -x
-            app_config=/shared-config/${CONFIG_SUBPATH}
+            shared_config=/shared-config
+            app_config=${shared_config}/${CONFIG_SUBPATH}
             mkdir -p $app_config
+            SONARR_API_KEY=$(grep ApiKey ${shared_config}/sonarr/config.xml | tr '<>' '|' | cut -f3 -d'|')
+            RADARR_API_KEY=$(grep ApiKey ${shared_config}/radarr/config.xml | tr '<>' '|' | cut -f3 -d'|')
             [[ -f ${app_config}/config.xml ]] || \
               cp /chart-config/config.xml $app_config
           env:
@@ -86,7 +89,7 @@ spec:
           - name: CONFIG_SUBPATH
             value: "{{ .Chart.Name }}"
           - name: DEBUG
-            value: {{ .Values.debug.enabled | ternary "yes" "" }}
+            value: {{ .Values.debug.enabled | ternary "yes" "" | quote }}
           volumeMounts:
             - name: config
               mountPath: /shared-config
