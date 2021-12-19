@@ -2,6 +2,21 @@ apiVersion: v1
 entries:
   htpc-downloader:
   - apiVersion: v2
+    created: "2021-12-19T14:35:44.333328922Z"
+    dependencies:
+    - alias: sonarr
+      condition: sonarr.deploy
+      name: xarr
+      repository: '@stevelipinski-github'
+      version: ^0.3.3
+    description: Umbrella chart for deploying HTPC downloader apps
+    digest: 7ace97c934992eeafa964af3dce4ca9848e83fd38fcbf0ef281b85aeb8599ce2
+    name: htpc-downloader
+    type: application
+    urls:
+    - https://github.com/stevelipinski/helm-charts/releases/download/htpc-downloader-0.1.4/htpc-downloader-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     created: "2021-12-19T14:18:10.289440877Z"
     dependencies:
     - alias: sonarr
