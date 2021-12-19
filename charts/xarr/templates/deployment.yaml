@@ -61,8 +61,37 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
+              subPath: /{{ .Chart.Name }}
             - name: data
               mountPath: /data
+      initContainers:
+        - name: init-{{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+          - sh
+          - -c
+          - |
+            set -eo pipefail
+            [[ $DEBUG ]] && set -x
+            app_config=/shared-config/${CONFIG_SUBPATH}
+            mkdir -p $app_config
+            [[ -f ${app_config}/config.xml ]] || \
+              cp /chart-config/config.xml $app_config
+          env:
+          - name: APP
+            value: "{{ .Chart.Name }}"
+          - name: CONFIG_SUBPATH
+            value: "{{ .Chart.Name }}"
+          - name: DEBUG
+            value: {{ .Values.debug.enabled | ternary "yes" "" }}
+          volumeMounts:
+            - name: config
+              mountPath: /shared-config
+            - name: chart-config
+              mountPath: /chart-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -76,6 +105,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        - name: chart-config
+          configMap:
+            name: {{ include "xarr.fullname" . }}
         - name: config
           persistentVolumeClaim:
             claimName: "{{ .Values.volumes.config.pvcName | default .Values.global.volumes.config.pvcName }}"

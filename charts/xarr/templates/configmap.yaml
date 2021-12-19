@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "xarr.fullname" . }}
+  labels:
+    {{- include "xarr.labels" . | nindent 4 }}
+  {{- with .Values.config.annotations | default (dict) }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  config.xml: |
+    <Config>
+      {{ with .Values.ingress.hosts | default (list) | first }}
+      {{- with .paths | default (list) | first -}}
+      <UrlBase>{{ .path }}</UrlBase>
+      {{- end -}}
+      {{- end }}
+      {{- if .Values.debug.enabled }}
+      <LogLevel>debug</LogLevel>
+      {{- end }}
+      {{- tpl (default "" .Values.config.addl) . | nindent 6 }}
+    </Config>

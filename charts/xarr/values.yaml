@@ -1,8 +1,7 @@
 global:
   volumes:
-    # PVC to use for config - shared among pods
     config:
-      pvcName:
+      storageClassName:
 
     # NFS Volume for data
     data:
@@ -48,10 +47,22 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
+      paths:
+        - path: /
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+config:
+  annotations: {}
+
+  # Additional config to inject into config.xml
+  addl: 
+
+debug:
+  # Enable more-verbose logging
+  enabled: false
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -79,9 +90,14 @@ probes:
 
 # Override global
 volumes:
-  # PVC to use for config - shared among pods
+  # PVC to use for config
   config:
+    # Required, or set in global
+    storageClassName:
+
     pvcName:
+
+    size: 1Gi
 
   # NFS Volume for data
   data:

@@ -62,5 +62,5 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "xarr.configpvc" -}}
-{{ .Values.pvc.configName | default (printf "%s-configpvc" (include "xarr.fullname" .)) }}
+{{ .Values.volumes.config.pvcName | default (printf "%s-config" (include "xarr.fullname" .)) }}
 {{- end }}
