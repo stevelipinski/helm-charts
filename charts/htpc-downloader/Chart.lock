@@ -2,5 +2,5 @@ dependencies:
 - name: xarr
   repository: https://stevelipinski.github.io/helm-charts
   version: 0.3.2
-digest: sha256:08bec478f07a87b4ba55092f27dcf42e7c75507eca3909d05c4ad9f4a847adaf
-generated: "2021-12-17T20:49:12.134499716-05:00"
+digest: sha256:09ef2750a957f5ee7ae1599f4cce988c3e509f77fa822b4d68e7d6bb4259eaed
+generated: "2021-12-19T09:17:28.207276809-05:00"
