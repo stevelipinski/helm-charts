@@ -10,6 +10,7 @@ global:
 
 sonarr:
   deploy: true
+  appPort: 8989
   ingress:
     enabled: true
     hosts:
@@ -21,6 +22,7 @@ sonarr:
     tag: arm64v8-latest
 radarr:
   deploy: false
+  appPort: 7878
   ingress:
     enabled: true
     hosts:
@@ -32,6 +34,7 @@ radarr:
     tag: arm64v8-latest
 nzbget:
   deploy: false
+  appPort: 6789
   ingress:
     enabled: true
     hosts:
@@ -43,6 +46,7 @@ nzbget:
     tag: arm64v8-latest
 bazarr:
   deploy: false
+  appPort: 6767
   ingress:
     enabled: true
     hosts:
@@ -54,6 +58,7 @@ bazarr:
     tag: arm64v8-latest
 plex:
   deploy: false
+  appPort: 32400
   ingress:
     enabled: true
     hosts:

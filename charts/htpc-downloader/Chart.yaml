@@ -2,10 +2,10 @@ apiVersion: v2
 name: htpc-downloader
 description: Umbrella chart for deploying HTPC downloader apps
 type: application
-version: 0.1.4
+version: 0.1.5
 dependencies:
   - name: xarr
     repository: "@stevelipinski-github"
-    version: ^0.3.3
+    version: ^0.3.4
     condition: sonarr.deploy
     alias: sonarr
