@@ -14,6 +14,8 @@ sonarr:
     enabled: true
     hosts:
       - host: sonarr.example.com
+        paths:
+          - path: /
   image:
     repository: linuxserver/sonarr
     tag: arm64v8-latest
@@ -23,6 +25,8 @@ radarr:
     enabled: true
     hosts:
       - host: radarr.example.com
+        paths:
+          - path: /
   image:
     repository: linuxserver/radarr
     tag: arm64v8-latest
@@ -32,6 +36,8 @@ nzbget:
     enabled: true
     hosts:
       - host: nxbget.example.com
+        paths:
+          - path: /
   image:
     repository: linuxserver/nzbget
     tag: arm64v8-latest
@@ -41,6 +47,8 @@ bazarr:
     enabled: true
     hosts:
       - host: bazarr.example.com
+        paths:
+          - path: /
   image:
     repository: linuxserver/bazarr
     tag: arm64v8-latest
@@ -50,6 +58,8 @@ plex:
     enabled: true
     hosts:
       - host: plex.example.com
+        paths:
+          - path: /
   image:
     repository: linuxserver/plex
     tag: arm64v8-latest
