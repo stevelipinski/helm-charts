@@ -35,27 +35,27 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySecynds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.probes.livenessProbe.timeoutSeconds }}
-            periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySecynds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.probes.readinessProbe.timeoutSeconds }}
-            periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
-          startupProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySecynds: {{ .Values.probes.startupProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.probes.startupProbe.timeoutSeconds }}
-            periodSeconds: {{ .Values.probes.startupProbe.periodSeconds }}
+          #livenessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
+          #  initialDelaySecynds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
+          #  timeoutSeconds: {{ .Values.probes.livenessProbe.timeoutSeconds }}
+          #  periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
+          #readinessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
+          #  initialDelaySecynds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
+          #  timeoutSeconds: {{ .Values.probes.readinessProbe.timeoutSeconds }}
+          #  periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
+          #startupProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
+          #  initialDelaySecynds: {{ .Values.probes.startupProbe.initialDelaySeconds }}
+          #  timeoutSeconds: {{ .Values.probes.startupProbe.timeoutSeconds }}
+          #  periodSeconds: {{ .Values.probes.startupProbe.periodSeconds }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
