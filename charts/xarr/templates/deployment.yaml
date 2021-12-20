@@ -56,6 +56,11 @@ spec:
           #  initialDelaySecynds: {{ .Values.probes.startupProbe.initialDelaySeconds }}
           #  timeoutSeconds: {{ .Values.probes.startupProbe.timeoutSeconds }}
           #  periodSeconds: {{ .Values.probes.startupProbe.periodSeconds }}
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -88,13 +93,18 @@ spec:
               mkdir -p /data/Backups
               ln -s /data/Backups ${app_config}/Backups
             }
+            chown -R $PUID:$PGID $app_config
           env:
-          - name: APP
-            value: "{{ .Chart.Name }}"
-          - name: CONFIG_SUBPATH
-            value: "{{ .Chart.Name }}"
-          - name: DEBUG
-            value: {{ .Values.debug.enabled | ternary "yes" "" | quote }}
+            - name: APP
+              value: "{{ .Chart.Name }}"
+            - name: CONFIG_SUBPATH
+              value: "{{ .Chart.Name }}"
+            - name: DEBUG
+              value: {{ .Values.debug.enabled | ternary "yes" "" | quote }}
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
           volumeMounts:
             - name: config
               mountPath: /shared-config
