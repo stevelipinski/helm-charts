@@ -74,7 +74,7 @@ spec:
           - /bin/bash
           - -c
           - |
-            set -eo pipefail
+            #set -eo pipefail
             [[ $DEBUG ]] && set -x
             shared_config=/shared-config
             app_config=${shared_config}/${CONFIG_SUBPATH}
