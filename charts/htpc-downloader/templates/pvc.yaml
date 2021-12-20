@@ -5,7 +5,7 @@ metadata:
 spec:
   storageClassName: {{ required "Config PVC StorageClass Required - global.volumes.config.storageClassName" .Values.global.volumes.config.storageClassName }}
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: {{ required "Config PVC Size Required - global.volumes.config.size" .Values.global.volumes.config.size }}
