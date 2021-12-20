@@ -28,7 +28,7 @@ spec:
       http:
         paths:
           {{- range .paths }}
-          - path: {{ .path }}
+          - path: /{{ .path | trimAll "/" }}
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}

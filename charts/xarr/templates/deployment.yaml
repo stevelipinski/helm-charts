@@ -26,7 +26,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: app
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -65,13 +65,13 @@ spec:
             - name: data
               mountPath: /data
       initContainers:
-        - name: init-{{ .Chart.Name }}
+        - name: app-init
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-          - sh
+          - /bin/bash
           - -c
           - |
             set -eo pipefail
@@ -83,6 +83,11 @@ spec:
             RADARR_API_KEY=$(grep ApiKey ${shared_config}/radarr/config.xml | tr '<>' '|' | cut -f3 -d'|')
             [[ -f ${app_config}/config.xml ]] || \
               cp /chart-config/config.xml $app_config
+            # Create symlink to place backups on data volume
+            [[ -x ${app_config}/Backups ]] || {
+              mkdir -p /data/Backups
+              ln -s /data/Backups ${app_config}/Backups
+            }
           env:
           - name: APP
             value: "{{ .Chart.Name }}"
@@ -95,6 +100,8 @@ spec:
               mountPath: /shared-config
             - name: chart-config
               mountPath: /chart-config
+            - name: data
+              mountPath: /data
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
