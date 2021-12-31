@@ -1,12 +1,17 @@
 global:
   volumes:
     config:
-      pvcName: config
-      storageClassName: openebs-jiva-csi-default
-      size: 4Gi
+      nfsServer: nas.example.com
+      nfsPath: /media/config
+      #pvcName: config
+      #storageClassName: openebs-jiva-csi-default
+      #size: 4Gi
     data:
       nfsServer: nas.example.com
       nfsPath: /media
+  ingress:
+    host: &mediahost mymedia.example.com
+
 
 sonarr:
   deploy: true
@@ -14,9 +19,9 @@ sonarr:
   ingress:
     enabled: true
     hosts:
-      - host: sonarr.example.com
+      - host: *mediahost
         paths:
-          - path: /
+          - path: sonarr/
   image:
     repository: linuxserver/sonarr
     tag: arm64v8-latest
@@ -26,9 +31,9 @@ radarr:
   ingress:
     enabled: true
     hosts:
-      - host: radarr.example.com
+      - host: *mediahost
         paths:
-          - path: /
+          - path: radarr/
   image:
     repository: linuxserver/radarr
     tag: arm64v8-latest
@@ -38,9 +43,9 @@ nzbget:
   ingress:
     enabled: true
     hosts:
-      - host: nxbget.example.com
+      - host: *mediahost
         paths:
-          - path: /
+          - path: nzbget/
   image:
     repository: linuxserver/nzbget
     tag: arm64v8-latest
@@ -50,9 +55,9 @@ bazarr:
   ingress:
     enabled: true
     hosts:
-      - host: bazarr.example.com
+      - host: *mediahost
         paths:
-          - path: /
+          - path: bazarr/
   image:
     repository: linuxserver/bazarr
     tag: arm64v8-latest
@@ -62,9 +67,9 @@ plex:
   ingress:
     enabled: true
     hosts:
-      - host: plex.example.com
+      - host: *mediahost
         paths:
-          - path: /
+          - path: plex/
   image:
     repository: linuxserver/plex
     tag: arm64v8-latest
