@@ -91,10 +91,8 @@ spec:
             [[ -f ${app_config}/config.xml ]] || \
               cp /chart-config/config.xml $app_config
             # Create symlink to place backups on data volume
-            [[ -x ${app_config}/Backups ]] || {
-              mkdir -p /data/Backups
-              ln -s /data/Backups ${app_config}/Backups
-            }
+            [[ -x ${app_config}/Backups ]] || \
+              mkdir -p ${app_config}/Backups
             chown -R $PUID:$PGID $app_config
           env:
             - name: APP
