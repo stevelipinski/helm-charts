@@ -10,6 +10,8 @@ spec:
   selector:
     matchLabels:
       {{- include "xarr.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: Recreate
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -129,8 +131,11 @@ spec:
           configMap:
             name: {{ include "xarr.fullname" . }}
         - name: config
-          persistentVolumeClaim:
-            claimName: "{{ .Values.volumes.config.pvcName | default .Values.global.volumes.config.pvcName }}"
+          nfs:
+            server: "{{ .Values.volumes.config.nfsServer | default .Values.global.volumes.config.nfsServer }}"
+            path: "{{ .Values.volumes.config.nfsPath | default .Values.global.volumes.config.nfsPath }}"
+          #persistentVolumeClaim:
+            #claimName: "{{ .Values.volumes.config.pvcName | default .Values.global.volumes.config.pvcName }}"
         - name: data
           nfs:
             server: "{{ .Values.volumes.data.nfsServer | default .Values.global.volumes.data.nfsServer }}"
