@@ -1,18 +1,18 @@
 dependencies:
 - name: xarr
   repository: https://stevelipinski.github.io/helm-charts
-  version: 0.4.0
+  version: 0.4.1
 - name: xarr
   repository: https://stevelipinski.github.io/helm-charts
-  version: 0.4.0
+  version: 0.4.1
 - name: xarr
   repository: https://stevelipinski.github.io/helm-charts
-  version: 0.4.0
+  version: 0.4.1
 - name: xarr
   repository: https://stevelipinski.github.io/helm-charts
-  version: 0.4.0
+  version: 0.4.1
 - name: xarr
   repository: https://stevelipinski.github.io/helm-charts
-  version: 0.4.0
-digest: sha256:63a7d4d0bc43df7c8158574a4714ac5d273f0fa60213bf7a432e93ba8aeaf604
-generated: "2021-12-31T18:05:41.563414247-05:00"
+  version: 0.4.1
+digest: sha256:a0862dfc5d12b85037f2c885d25a06c0c6eb8752740a93f7d56f91cc666e3b2d
+generated: "2021-12-31T18:48:01.112889787-05:00"

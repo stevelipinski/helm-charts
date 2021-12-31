@@ -2,30 +2,30 @@ apiVersion: v2
 name: htpc-downloader
 description: Umbrella chart for deploying HTPC downloader apps
 type: application
-version: 0.2.0
+version: 0.2.1
 dependencies:
   - name: xarr
     repository: "@stevelipinski-github"
-    version: ^0.4.0
+    version: ^0.4.1
     condition: sonarr.deploy
     alias: sonarr
   - name: xarr
     repository: "@stevelipinski-github"
-    version: ^0.4.0
+    version: ^0.4.1
     condition: radarr.deploy
     alias: radarr
   - name: xarr
     repository: "@stevelipinski-github"
-    version: ^0.4.0
+    version: ^0.4.1
     condition: bazarr.deploy
     alias: bazarr
   - name: xarr
     repository: "@stevelipinski-github"
-    version: ^0.4.0
+    version: ^0.4.1
     condition: nzbget.deploy
     alias: nzbget
   - name: xarr
     repository: "@stevelipinski-github"
-    version: ^0.4.0
+    version: ^0.4.1
     condition: plex.deploy
     alias: plex
